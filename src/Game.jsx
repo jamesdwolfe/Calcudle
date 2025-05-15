@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Button } from "./components/Button";
+import { Tile } from "./components/Tile";
 import PUZZLES from "./data/puzzles.json";
 
 // Constants
@@ -53,36 +54,6 @@ const getKeyStatuses = (attempts, feedback) => {
     }
 
     return keyStatuses;
-};
-
-const Tile = ({ char, status, isOperator }) => {
-    const baseStyle = "w-10 h-10 m-1 flex items-center justify-center text-xl font-bold rounded";
-
-    let tileStyle;
-
-    if (isOperator) {
-        tileStyle = "bg-blue-500 text-white";
-    } else {
-        switch (status) {
-            case "correct":
-                tileStyle = "bg-green-500 text-white";
-                break;
-            case "misplaced":
-                tileStyle = "bg-yellow-500 text-white";
-                break;
-            case "not-in-solution":
-                tileStyle = "bg-gray-300 text-white";
-                break;
-            default:
-                tileStyle = "bg-gray-200 text-black";
-        }
-    }
-
-    return (
-        <div className={`${baseStyle} ${tileStyle}`}>
-            {char}
-        </div>
-    );
 };
 
 export default function Game() {
@@ -211,7 +182,7 @@ export default function Game() {
                     <div className="grid grid-cols-3 gap-2 justify-center mt-2">
                         <Button onClick={handleBackspace} variant="secondary">⌫</Button>
                         <Button onClick={handleSubmit}>Submit</Button>
-                        <Button onClick={handleNewGame} variant="secondary">⟳</Button>
+                        <Button onClick={handleNewGame} variant="secondary">↻</Button>
                     </div>
                 </div>
             )}
