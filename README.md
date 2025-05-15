@@ -1,70 +1,144 @@
-# Getting Started with Create React App
+# 🧮 Calcudle
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Calcudle** is a math-based puzzle game inspired by Wordle — but instead of guessing words, you're solving mathematical expressions. Each puzzle hides a valid math expression, and your goal is to uncover it through logic and deduction.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🎯 Objective
 
-### `npm start`
+You must guess the digits that complete a hidden expression. Each attempt receives feedback on a tile-by-tile basis:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- 🟩 Green: Correct digit/operator in the correct place
+- 🟨 Yellow: Digit/operator exists in the solution but is in the wrong place
+- ⬜ Gray: Digit/operator is not in the solution at all
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## 🧠 Gameplay Rules
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Operators (`+`, `-`, `*`, `/`, `=`, `^`, `!`, `<`, `>`) are fixed and visible.
+- You only need to input the missing **digits**.
+- You get limited attempts — equal to the length of the solution **plus 3**.
+- After each guess, feedback helps guide your next attempt.
+- A puzzle is solved when your input produces the correct expression.
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## ✨ Features
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Dynamic puzzles from `puzzles.json`
+- Expression feedback with color-coded tiles
+- Digit-only input — operators are pre-filled
+- New game resets with a fresh random puzzle
+- Keyboard feedback to guide digit selection
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## 🛠️ Tech Stack
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- **React** (functional components + hooks)
+- **Tailwind CSS** for layout and styling
+- **JSON-based puzzles**
+- No external backend — works entirely client-side
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 🚀 Getting Started
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### 1. Clone the Repository
 
-## Learn More
+```bash
+git clone https://github.com/your-username/calcudle.git
+cd calcudle
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 2. Install Dependencies
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
+npm install
+```
 
-### Code Splitting
+### 3. Run the Game Locally
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```bash
+npm run dev
+```
 
-### Analyzing the Bundle Size
+Then open [http://localhost:3000](http://localhost:3000) in your browser.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+---
 
-### Making a Progressive Web App
+## 📁 Puzzle Format (`puzzles.json`)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Each puzzle includes an `expression` with placeholders (`?`) and a full `solution`:
 
-### Advanced Configuration
+```json
+{
+  "expression": ["?", "?", "*", "?", "?", "=", "?", "?", "?"],
+  "solution": ["2", "0", "*", "1", "4", "=", "2", "8", "0"]
+}
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+✅ Supported operators: `+`, `-`, `*`, `/`, `=`, `^`, `!`, `<`, `>`
 
-### Deployment
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## 🔣 Expression Types
 
-### `npm run build` fails to minify
+You can define puzzles using:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+| Type           | Example        |
+|----------------|----------------|
+| Multiplication | `12 * 21 = 252` |
+| Factorials     | `5! = 120`     |
+| Comparisons    | `45 > 12`      |
+| Custom combos  | `3 + 4 = 7`    |
+
+Expressions must evaluate correctly and match the given format.
+
+---
+
+## ➕ Adding New Puzzles
+
+Add to `src/data/puzzles.json` using this structure:
+
+```json
+{
+  "expression": ["?", "!", "=", "1", "2", "0"],
+  "solution": ["5", "!", "=", "1", "2", "0"]
+}
+```
+
+Use any mix of digits and the allowed operators.
+
+---
+
+## 🔧 Customization Ideas
+
+- Add sound effects or animations
+- Add a streak or score system
+- Add hints (e.g., reveal one digit)
+- Support multi-character operators (like `<=`, `==`)
+- Support player-submitted puzzles
+
+---
+
+## 📝 License
+
+This project is open source under the [MIT License](LICENSE).
+
+---
+
+## 🙋 FAQ
+
+**Q: Can I evaluate expressions dynamically?**  
+A: Not yet — the game compares against predefined solutions. But safe evaluation could be added with caution.
+
+**Q: Why is `!`, `<`, `>` supported but not `==` or `<=`?**  
+A: The current version uses single-character operators only. Multi-character operators would need parsing updates.
+
+---
+
+## 💡 Author
+
+Created by [James Wolfe](https://github.com/jamesdwolfe)
