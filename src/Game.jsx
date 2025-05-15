@@ -189,11 +189,11 @@ export default function Game() {
                         <div key={i} className="grid grid-cols-5 gap-2 justify-center">
                             {row.map(d => {
                                 const status = keyStatuses[d];
-                                let style = "bg-blue-600 text-black";
+                                let style = "bg-blue-600 hover:bg-blue-700 text-black";
 
-                                if (status === "correct") style = "bg-green-500 text-white";
-                                else if (status === "misplaced") style = "bg-yellow-500 text-white";
-                                else if (status === "not-in-solution") style = "bg-gray-300 text-white";
+                                if (status === "correct") style = "bg-green-500 hover:bg-green-600 text-white";
+                                else if (status === "misplaced") style = "bg-yellow-500 hover:bg-yellow-600 text-white";
+                                else if (status === "not-in-solution") style = "bg-gray-300 hover:bg-gray-300 text-white";
 
                                 return (
                                     <Button
@@ -208,9 +208,10 @@ export default function Game() {
                         </div>
                     ))}
 
-                    <div className="grid grid-cols-2 gap-2 justify-center mt-2">
+                    <div className="grid grid-cols-3 gap-2 justify-center mt-2">
                         <Button onClick={handleBackspace} variant="secondary">⌫</Button>
                         <Button onClick={handleSubmit}>Submit</Button>
+                        <Button onClick={handleNewGame} variant="secondary">⟳</Button>
                     </div>
                 </div>
             )}
