@@ -4,6 +4,14 @@
 
 ---
 
+## 🎮 Try It Live
+
+You can play Calcudle instantly at:
+
+[🔗 https://calcudle.vercel.app/](https://calcudle.vercel.app/)
+
+---
+
 ## 🎯 Objective
 
 You must guess the digits that complete a hidden expression. Each attempt receives feedback on a tile-by-tile basis:
