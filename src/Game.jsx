@@ -118,7 +118,6 @@ export default function Game() {
     return (
         <div className="max-w-lg mx-auto mt-10 p-4 text-white">
             <h1 className="text-3xl font-bold text-center mb-4">Calcudle</h1>
-
             <div className={`grid grid-rows-${maxAttempts} gap-2`}>
                 {Array.from({ length: maxAttempts }).map((_, i) => (
                     <div key={i} className="flex justify-center">
