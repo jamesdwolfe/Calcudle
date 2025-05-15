@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 
 export const Tile = ({ char, status, isOperator }) => {
     const baseStyle = "w-10 h-10 m-1 flex items-center justify-center text-xl font-bold rounded";
 
     let tileStyle;
-
     if (isOperator) {
         tileStyle = "bg-blue-500 text-white";
     } else {
@@ -23,9 +23,32 @@ export const Tile = ({ char, status, isOperator }) => {
         }
     }
 
+    const hasMounted = useRef(false);
+    const [prevChar, setPrevChar] = useState(char);
+    const [shouldAnimate, setShouldAnimate] = useState(false);
+
+    useEffect(() => {
+        if (hasMounted.current) {
+            if (char !== prevChar && char.trim() !== "" && !isOperator) {
+                setShouldAnimate(true);
+            }
+        } else {
+            hasMounted.current = true;
+        }
+        setPrevChar(char);
+    }, [char, prevChar, isOperator]);
+
     return (
-        <div className={`${baseStyle} ${tileStyle}`}>
+        <motion.div
+            animate={shouldAnimate ? { scale: [1, 1.2, 1] } : { scale: 1 }}
+            transition={{
+                duration: 0.25,
+                ease: "easeOut"
+            }}
+            onAnimationComplete={() => setShouldAnimate(false)}
+            className={`${baseStyle} ${tileStyle}`}
+        >
             {char}
-        </div>
+        </motion.div>
     );
 };
