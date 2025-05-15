@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { Button } from "./components/ui/Button";
+import { Button } from "./components/Button";
 import PUZZLES from "./data/puzzles.json";
 
 // Constants
-const OPERATORS = ["+", "-", "*", "/", "=", "^"];
-const MAX_ATTEMPTS = 6;
+const OPERATORS = ["+", "-", "*", "/", "=", "^", "!", "<", ">"];
 const PLACEHOLDER = " ";
 
 // Utility Functions
@@ -96,6 +95,7 @@ export default function Game() {
     const [gameOver, setGameOver] = useState(false);
 
     const digitsNeeded = solution.filter(char => !OPERATORS.includes(char)).length;
+    const maxAttempts = digitsNeeded + 2;
 
     const handleSubmit = () => {
         if (currentInput.length !== digitsNeeded) return;
@@ -116,13 +116,14 @@ export default function Game() {
         setCurrentInput("");
 
         const isSolved = inputArr.join("") === solution.join("");
-        const hasMoreTries = newAttempts.length < MAX_ATTEMPTS;
+        const hasMoreTries = newAttempts.length < maxAttempts;
 
         setGameOver(isSolved || !hasMoreTries);
     };
 
     const handleNewGame = () => {
-        setPuzzle(getRandomPuzzle());
+        const newPuzzle = getRandomPuzzle();
+        setPuzzle(newPuzzle);
         setAttempts([]);
         setFeedback([]);
         setCurrentInput("");
@@ -144,11 +145,11 @@ export default function Game() {
     const keyStatuses = getKeyStatuses(attempts, feedback);
 
     return (
-        <div className="max-w-md mx-auto mt-10 p-4 text-white">
+        <div className="max-w-lg mx-auto mt-10 p-4 text-white">
             <h1 className="text-3xl font-bold text-center mb-4">Calcudle</h1>
 
-            <div className="grid grid-rows-6 gap-2">
-                {Array.from({ length: MAX_ATTEMPTS }).map((_, i) => (
+            <div className={`grid grid-rows-${maxAttempts} gap-2`}>
+                {Array.from({ length: maxAttempts }).map((_, i) => (
                     <div key={i} className="flex justify-center">
                         {expression.map((char, j) => {
                             const isOperator = OPERATORS.includes(char);
