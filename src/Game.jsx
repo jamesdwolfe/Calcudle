@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "./components/Button";
 import { Tile } from "./components/Tile";
-import PUZZLES from "./data/puzzles.json";
+import PUZZLES from "./data/puzzles_commutative.json";
 
 // Constants
 const OPERATORS = ["+", "-", "*", "/", "=", "^", "!", "<", ">"];
@@ -36,6 +36,23 @@ const getFeedback = (guess, solution) => {
     return feedback;
 };
 
+const getBestFeedback = (guess, solutions) => {
+    let bestFeedback = null;
+    let bestScore = -1;
+
+    for (let sol of solutions) {
+        const fb = getFeedback(guess, sol);
+        const score = fb.filter(f => f === "correct").length;
+
+        if (score > bestScore) {
+            bestScore = score;
+            bestFeedback = fb;
+        }
+    }
+
+    return bestFeedback;
+};
+
 const getKeyStatuses = (attempts, feedback) => {
     const priority = { correct: 3, misplaced: 2, "not-in-solution": 1 };
     const keyStatuses = {};
@@ -58,15 +75,15 @@ const getKeyStatuses = (attempts, feedback) => {
 
 export default function Game() {
     const [puzzle, setPuzzle] = useState(getRandomPuzzle);
-    const { expression, solution } = puzzle;
+    const { expression, solutions } = puzzle;
 
     const [attempts, setAttempts] = useState([]);
     const [feedback, setFeedback] = useState([]);
     const [currentInput, setCurrentInput] = useState("");
     const [gameOver, setGameOver] = useState(false);
 
-    const digitsNeeded = solution.filter(char => !OPERATORS.includes(char)).length;
-    const maxAttempts = digitsNeeded + 2;
+    const digitsNeeded = solutions[0].filter(char => !OPERATORS.includes(char)).length;
+    const maxAttempts = digitsNeeded + 1;
 
     const handleSubmit = () => {
         if (currentInput.length !== digitsNeeded) return;
@@ -78,7 +95,7 @@ export default function Game() {
             inputArr.push(OPERATORS.includes(char) ? char : currentInput[inputIdx++]);
         }
 
-        const currentFeedback = getFeedback(inputArr, solution);
+        const currentFeedback = getBestFeedback(inputArr, solutions);
         const newAttempts = [...attempts, inputArr];
         const newFeedback = [...feedback, currentFeedback];
 
@@ -86,7 +103,7 @@ export default function Game() {
         setFeedback(newFeedback);
         setCurrentInput("");
 
-        const isSolved = inputArr.join("") === solution.join("");
+        const isSolved = solutions.some(sol => inputArr.join("") === sol.join(""));
         const hasMoreTries = newAttempts.length < maxAttempts;
 
         setGameOver(isSolved || !hasMoreTries);
@@ -189,11 +206,13 @@ export default function Game() {
             {gameOver && (
                 <div className="text-center mt-4">
                     <p className="text-lg font-semibold">
-                        {attempts[attempts.length - 1].join("") === solution.join("")
+                        {solutions.some(sol => attempts[attempts.length - 1]?.join("") === sol.join(""))
                             ? "🎉 Correct!"
-                            : `Game Over. Solution was ${solution.join("")}`}
+                            : `Game Over. Solution was ${solutions[0].join("")}`}
                     </p>
-                    <Button className="mt-2" onClick={handleNewGame}>New Game</Button>
+                    <div className="grid grid-cols-1 justify-center mt-2">
+                        <Button className="mt-2" onClick={handleNewGame}>New Game</Button>
+                    </div>
                 </div>
             )}
         </div>

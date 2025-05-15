@@ -26,7 +26,7 @@ You must guess the digits that complete a hidden expression. Each attempt receiv
 
 - Operators (`+`, `-`, `*`, `/`, `=`, `^`, `!`, `<`, `>`) are fixed and visible.
 - You only need to input the missing **digits**.
-- You get limited attempts — equal to the length of the solution **plus 2**.
+- You get limited attempts — equal to the length of the solution **plus 1**.
 - After each guess, feedback helps guide your next attempt.
 - A puzzle is solved when your input produces the correct expression.
 
