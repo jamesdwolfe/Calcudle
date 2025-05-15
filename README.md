@@ -18,7 +18,7 @@ You must guess the digits that complete a hidden expression. Each attempt receiv
 
 - Operators (`+`, `-`, `*`, `/`, `=`, `^`, `!`, `<`, `>`) are fixed and visible.
 - You only need to input the missing **digits**.
-- You get limited attempts — equal to the length of the solution **plus 3**.
+- You get limited attempts — equal to the length of the solution **plus 2**.
 - After each guess, feedback helps guide your next attempt.
 - A puzzle is solved when your input produces the correct expression.
 
@@ -120,22 +120,6 @@ Use any mix of digits and the allowed operators.
 - Add hints (e.g., reveal one digit)
 - Support multi-character operators (like `<=`, `==`)
 - Support player-submitted puzzles
-
----
-
-## 📝 License
-
-This project is open source under the [MIT License](LICENSE).
-
----
-
-## 🙋 FAQ
-
-**Q: Can I evaluate expressions dynamically?**  
-A: Not yet — the game compares against predefined solutions. But safe evaluation could be added with caution.
-
-**Q: Why is `!`, `<`, `>` supported but not `==` or `<=`?**  
-A: The current version uses single-character operators only. Multi-character operators would need parsing updates.
 
 ---
 
